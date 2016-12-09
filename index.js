@@ -1,4 +1,5 @@
 var bcrypt = require('bcryptjs');
+//var bcrypt = require('bcrypt');
 var User = require('../models/user').User;
 var Transport = require('../models/notifier').transport;
 var Service = require('../models/services').Service;
@@ -170,3 +171,51 @@ exports.signup= function(req,res) {
 };
 
 
+exports.serviceproviders = function(req, res) {
+    var name = req.body.name;
+    var email = req.body.email;
+    var mobile = req.body.mobileno;
+    var DOB = req.body.DOB;
+    var services_id = req.body.subservices;
+    var address = req.body.address;
+    var city = req.body.city;
+    var gender = req.body.gender;
+
+    var serviceprovider = ServiceProvider.build({
+        name:name,
+        email:email,
+        mobile:mobile,
+        DOB:DOB,
+        city:city,
+        gender:gender,
+        address:address,
+        services_id:services_id
+    });
+
+    serviceprovider.save().then(function(err) {
+        if(err){
+            console.log(err);
+        }
+
+        var message = {
+            from: 'DoorStep Solutions <doorstepsolution.365days@gmail.com>',
+            to: req.body.email,
+            cc: 'DoorStep Solutions <doorstepsolution.365days@gmail.com>',
+            subject: 'Welcome to DoorStepSolutions',
+            text: 'Hello '+req.body.name,
+            html:'<p>Hello '+req.body.name+',<br>Welcome to DoorStepSolutions. Thank you for Your Service Provider into DoorStepSolutions </p>'+
+            '<p>Our team team will get back to you with in 5 hrs</p>'
+        };
+
+        Transport.sendMail(message, function(error){
+            if(error){
+                console.log(error.message);
+            }
+            console.log('Message sent successfully!');
+        });
+
+        req.flash('success_msg','you are registerd for Service Providers Thank you');
+        res.redirect('/');
+    });
+
+};
