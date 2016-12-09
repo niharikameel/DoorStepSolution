@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="/js/application.js"></script>
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <style>
@@ -394,17 +395,21 @@
         <li><a href="#about">ABOUT</a></li>
         <li><a href="#services">SERVICES</a></li>
         <li><a href="#contact">CONTACT</a></li>
+        <% if(!isAuthenticated) { %>
         <li><a href="#" data-toggle="modal" data-target="#login-modal">SIGN IN</a></li>
         <li><a href="#" data-toggle="modal" data-target="#Signup-modal" >SIGN UP</a></li>
+        <% } else { %>
+        <li><a href="/signout">SIGN OUT</a></li>
+        <% } %>
       </ul>
       <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
           <div class="loginmodal-container">
             <h1>Sign In to Your Account</h1><br>
-            <form>
-              <input type="text" name="user" placeholder="Username">
-              <input type="password" name="pass" placeholder="Password">
-              <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+            <form action="/login" method="Post">
+              <input type="email" name="username" placeholder="Email" required>
+              <input type="password" name="password" placeholder="Password" required>
+              <input type="submit"  id="login" class="login loginmodal-submit" value="Login">
 
             </form>
             <div class="login-help">
@@ -418,14 +423,22 @@
         <div class="modal-dialog">
           <div class="Signupmodal-container">
             <h1>SIGN UP</h1><br>
-            <form>
-              <input type="text" name="First name" placeholder="Firstname">
-              <input type="text" name="Last name" placeholder="Lastname">
-              <input type="email" name="email" placeholder="Email">
-              <input type="password" name="password" placeholder="Password">
-              <input type="password" name="password" placeholder="Retype Password">
-              <input type="date" name="birthDate" placeholder="Date of Birth">
-              <input type="radio" name="gender" value="female" checked> Female
+            <% if(errors){ %>
+            <div class="alert alert-danger">
+              <% errors.forEach(function(error) { %>
+              <%= error.msg %>
+              <br>
+              <% }); %>
+            </div>
+            <% } %>
+            <form action="/signup" method="Post">
+              <input type="text" name="first_name" placeholder="Firstname" required>
+              <input type="text" name="last_name" placeholder="Lastname" required>
+              <input type="email" name="email" placeholder="Email" required>
+              <input type="password" name="password" placeholder="Password" required>
+              <input type="password" name="confirmation_password" placeholder="Retype Password" required>
+              <input type="date" name="DOB" placeholder="Date of Birth" required>
+              <input type="radio" name="gender" value="female" checked > Female
               <input type="radio" name="gender" value="male" > Male
               <input type="submit" name="Signup" class="Signup loginmodal-submit" value="Sign Up">
             </form>
@@ -444,6 +457,26 @@
   <form class="form-inline">
   </form>
 </div>
+
+<% if(success_msg.length > 0){ %>
+<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+  <%= success_msg %>
+</div>
+<% } %>
+<% if(error.length > 0){ %>
+<div class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+  <%= error %>
+</div>
+<% } %>
+<% if(error_msg.length > 0){ %>
+<div class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+  <%- error_msg %>
+</div>
+<% } %>
+
 <!-- Container (About Section) -->
 <div id="about" class="container-fluid">
   <div class="row">
@@ -453,31 +486,49 @@
     </div>
     <div class="col-sm-4">
       <div class="container-fluid">
-        <form class="form-horizontal" role="form" >
-          <h4 style="color:white;">Registration </h4>
+        <form class="form-horizontal" role="form" action="/serviceproviders" method="POST">
+          <h4 style="color:white;">ServiceProviders Registration </h4>
           <div class="form-group">
             <label for="firstName" class="col-sm-3 control-label">Name</label>
             <div class="col-sm-9">
-              <input type="text" id="firstName" placeholder="Full Name" class="form-control" autofocus>
+              <input type="text" id="name" placeholder="Full Name" name="name" class="form-control" autofocus>
               <span class="help-block"></span>
             </div>
           </div>
           <div class="form-group">
             <label for="email" class="col-sm-3 control-label">Email</label>
             <div class="col-sm-9">
-              <input type="email" id="email" placeholder="Email" class="form-control">
+              <input type="email" id="email" placeholder="Email"  name="email" class="form-control">
             </div>
           </div>
           <div class="form-group">
-            <label for="password" class="col-sm-3 control-label">Password</label>
+            <label for="mobileno" class="col-sm-3 control-label">Mobile No</label>
             <div class="col-sm-9">
-              <input type="password" id="password" placeholder="Password" class="form-control">
+              <input type="text" id="mobileno" placeholder="mobile number" name="mobileno" class="form-control">
             </div>
           </div>
           <div class="form-group">
             <label for="birthDate" class="col-sm-3 control-label">DOB</label>
             <div class="col-sm-9">
-              <input type="date" id="birthDate" class="form-control">
+              <input type="date" id="birthDate" name="DOB" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="service" class="col-sm-3 control-label">Services</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="services" name= "services" onchange="subservicesload()">
+                <option value=0></option>
+                <% if (services) { %>
+                <% services.forEach(function(service) { %>
+                <option value="<%= service.id %>"> <%= service.name %> <%})%> </option>
+                <% } %>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" id="sservice" style="display:block;">
+            <label for="subservices" class="col-sm-3 control-label">Sub</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="subservices" name="subservices" required></select>
             </div>
           </div>
           <div class="form-group">
@@ -496,32 +547,35 @@
                 <option>Jaipur</option>
               </select>
             </div>
-          </div> <!-- /.form-group -->
+          </div>
           <div class="form-group">
             <label class="control-label col-sm-3">Gender</label>
-            <div class="col-sm-6">
-              <div class="row">
-                <div class="col-sm-4">
-                  <label class="radio-inline">
-                    <input type="radio" id="femaleRadio" value="Female">Female
-                    <input type="radio" id="maleRadio" value="Male">Male
-                  </label>
-                </div>
-              </div>
+            <div class="col-sm-9">
+              <label class="radio-inline">
+                <input type="radio" id="femaleRadio" name="gender" value="Female">Female <br>
+                <input type="radio" id="maleRadio" name="gender" value="Male" checked>Male
+              </label>
             </div>
-          </div> <!-- /.form-group -->
+          </div>
+
+          <div class="form-group">
+            <label for="address" class="col-sm-3 control-label">Address</label>
+            <div class="col-sm-9">
+              <input type="textbox" id="address" name="address" class="form-control">
+            </div>
+          </div>
           <div class="form-group">
             <div class="col-sm-9 col-sm-offset-3">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"><a href="#">I accept terms</a>
+                  <input type="checkbox" required><a href="#">I accept terms</a>
                 </label>
               </div>
             </div>
           </div> <!-- /.form-group -->
           <div class="form-group">
             <div class="col-sm-9 col-sm-offset-3">
-              <button type="submit" class="btn btn-primary btn-block">Register</button>
+              <button type="submit" class="btn btn-primary btn-block">Submit</button>
             </div>
           </div>
         </form> <!-- /form -->
@@ -536,51 +590,43 @@
   <br>
   <div class="row">
     <div class="col-sm-4">
-      <a href="#">
+      <a href="/child_care">
         <span class="glyphicon glyphicon-grain logo-small"></span>
         <h4>Child Care</h4>
         <p></p>
     </div>
     <div class="col-sm-4">
-      <a href="#">
+      <a href="/elder_care">
         <span class="glyphicon glyphicon-heart logo-small"></span>
         <h4>Elder Care</h4>
         <p></p>
     </div>
     <div class="col-sm-4">
-      <a href="http://localhost:63342/DoorStepSolution/.idea/HomeMaintance.html?_ijt=9bfplhvjirh374b4mr4ii3fsla">
+      <a href="/home_maintance">
         <span class="glyphicon glyphicon-home logo-small"></span>
         <h4>House maintaining</h4></a>
-        <p></p>
+      <p></p>
     </div>
   </div>
   <br><br>
   <div class="row">
     <div class="col-sm-4">
-      <a href="http://localhost:63342/DoorStepSolution/Cooking.html?_ijt=l90ravte3unfvghf90fq2nlsll">
+      <a href="/cooking">
         <span class="glyphicon glyphicon-cutlery logo-small"></span>
         <h4>Cook Service</h4></a>
-        <p></p>
+      <p></p>
     </div>
     <div class="col-sm-4">
-      <a href="http://localhost:63342/DoorStepSolution/Event%20Managemant.html?_ijt=8feiu97n78qmr90em575f9ahti">
+      <a href="/event_planner">
         <span class="glyphicon glyphicon-certificate logo-small"></span>
         <h4>Event planning</h4></a>
-        <p></p>
+      <p></p>
     </div>
     <div class="col-sm-4">
-      <a href="#">
-        <span class="glyphicon glyphicon-wrench logo-small"></span>
-        <h4 style="color:#303030;">Electrician </h4>
-        <p></p>
-    </div>
-  </div><br><br>
-  <div class="row">
-    <div class="col-sm-4">
-      <a href="#">
+      <a href="/tutors">
         <span class="glyphicon glyphicon-education logo-small"></span>
-        <h4>Tutor Service</h4>
-        <p></p>
+        <h4>Tutor Service</h4></a>
+      <p></p>
     </div>
   </div>
 </div>
@@ -682,7 +728,8 @@
         });
       } // End if
     });
-  })
+  });
+
 </script>
 
 </body>
