@@ -1,5 +1,4 @@
 var bcrypt = require('bcryptjs');
-//var bcrypt = require('bcrypt');
 var User = require('../models/user').User;
 var Transport = require('../models/notifier').transport;
 var Service = require('../models/services').Service;
