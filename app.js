@@ -29,62 +29,63 @@ app.use('/img',express.static(path.join(__dirname, 'public/images')));
 app.use('/js',express.static(path.join(__dirname, 'public/javascripts')));
 app.use('/css',express.static(path.join(__dirname, 'public/stylesheets')));
 app.use(session({
-  secret:'secret',
-  resave: false,
-  saveUninitialized: false
+    secret:'secret',
+    resave: false,
+    saveUninitialized: false
 }));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.all(function(req,res,next){
-  req.locals.success_msg=req.flash('success_msg');
-  req.locals.error_msg=req.flash('error_msg');
-  req.locals.error=req.flash('error');
-  next();
+    req.locals.success_msg=req.flash('success_msg');
+    req.locals.error_msg=req.flash('error_msg');
+    req.locals.error=req.flash('error');
+    next();
 });
 app.use(expressValidator({
-  errorFormatter: function(param, msg, value) {
-    var namespace = param.split('.')
-        , root    = namespace.shift()
-        , formParam = root;
+    errorFormatter: function(param, msg, value) {
+        var namespace = param.split('.')
+            , root    = namespace.shift()
+            , formParam = root;
 
-    while(namespace.length) {
-      formParam += '[' + namespace.shift() + ']';
+        while(namespace.length) {
+            formParam += '[' + namespace.shift() + ']';
+        }
+        return {
+            param : formParam,
+            msg   : msg,
+            value : value
+        };
     }
-    return {
-      param : formParam,
-      msg   : msg,
-      value : value
-    };
-  }
 }));
 
 passport.serializeUser(function(user, done) {
-  done(null, user);
+    done(null, user);
 });
 
 passport.deserializeUser(function(user, done) {
-  done(null, user);
+    done(null, user);
 });
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
-      User.findOne({ where: {email: username} }).then(function(user) {
-        passwd= user ? user.password :''
-        isMatch = User.validPassword(password, passwd,done,user)
-      });
+        User.findOne({ where: {email: username} }).then(function(user) {
+            passwd= user ? user.password :''
+            isMatch = User.validPassword(password, passwd,done,user)
+        });
     }
 ));
 
 app.get('/',routes.home);
 app.post('/login',
     passport.authenticate('local', {
-      successRedirect: '/',
-      failureRedirect: '/',
-      failureFlash: true
+        successRedirect: '/',
+        failureRedirect: '/',
+        failureFlash: true
     })
 );
-
+app.post('/serviceproviders',routes.serviceproviders)
+app.get('/subservices/:id?',routes.subservices)
 app.post('/createservice',routes.createservice)
 app.post('/signup', routes.signup)
 app.get('/home_maintance',application.IsAuthenticated,routes.home_maintance)
