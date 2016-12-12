@@ -3,6 +3,7 @@ var path = require('path');
 var mysql = require('mysql');
 var app = express();
 var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -18,7 +19,11 @@ var application = require('./routes/application');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 var User = require('./models/user').User;
-
+io.on('connection', function(socket){
+    socket.on('chat message', function(msg){
+        io.emit('chat message', msg);
+    });
+});
     
 
 app.set('port', 3000);
@@ -100,6 +105,11 @@ app.get('/tutors',application.IsAuthenticated,routes.tutors)
 app.get('/event_planner',application.IsAuthenticated,routes.event_planner)
 app.get('/signout',application.destroySession)
 app.get('/admin',routes.admin)
-
+app.get('/chat', function (req, res) {
+    res.render('chat')
 });
-
+/*
+app.listen(process.env.PORT || 3000);
+console.log('Express server listening on port ' + app.get('port'));*/
+var port = process.env.PORT || 3000;
+http.listen(port);
