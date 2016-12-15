@@ -894,9 +894,9 @@ exports.serviceproviders = function(req, res) {
         var message = {
             from: 'DoorStep Solutions <doorstepsolution.365days@gmail.com>',
             to: req.body.email,
-            subject: 'Regarding Your Services',
-            html:'<p>Hello '+req.body.name+',<br>Welcome to DoorStepSolutions. Thank you for Your Service Provider into DoorStepSolutions  You are one of my service provider</p>'
-        };
+            subject: 'Registeration Confirmation',
+            html:'<p>Hello '+req.body.name+',<br>Welcome to DoorStepSolutions. Thank you for registering with DoorStepSolutions, from now you are one of our service providers</p>'
+};
 
         Transport.sendMail(message, function(error){
             if(error){
@@ -905,7 +905,7 @@ exports.serviceproviders = function(req, res) {
             console.log('Message sent successfully!');
         });
 
-        req.flash('success_msg','you are registerd for Service Providers Thank you');
+        req.flash('success_msg','you are registerd as Service Provider, Thank you');
         res.redirect('/admin/all_serviceproviders');
     });
 
@@ -929,9 +929,9 @@ exports.serviceprovidermail= function(req,res){
             to: req.body.email,
             cc: 'DoorStep Solutions <doorstepsolution.365days@gmail.com>',
             subject: 'Request for ServiecProvider Registration',
-            html:'<p>Hello '+req.body.name+',<br>Welcome to DoorStepSolutions. Thank you for Your Service Provider into DoorStepSolutions </p>'+
-            '<p>Our team team will get back to you with in 5 hrs</p><br>Here is your details: name:'+name+'<br> Email:'+email+'<br> Mobile:'+mobile+'<br>DOB:'+DOB+'<br> Your Services:'+servicename+'<br> city:'+city+'<br> gender:'+gender+'<br> Address:'+address+'.'
-        };
+            html:'<p>Hello '+req.body.name+',<br>Welcome to DoorStepSolutions. Thank you for registering with DoorStepSolutions </p>'+
+         '<p>Our team team will get back to you with in 5 hours</p><br>Here is your details: name:'+name+'<br> Email:'+email+'<br> Mobile:'+mobile+'<br>DOB:'+DOB+'<br> Your Services:'+servicename+'<br> city:'+city+'<br> gender:'+gender+'<br> Address:'+address+'.'
+};
 
         Transport.sendMail(message, function(error){
             if(error){
@@ -941,7 +941,7 @@ exports.serviceprovidermail= function(req,res){
         });
     });
 
-    req.flash('success_msg','you are registerd for Service Providers Thank you');
+    req.flash('success_msg','you are registerd as Service Provider,Thank you');
     res.redirect('/');
 
 }
@@ -954,43 +954,43 @@ exports.all_serviceproviders=function(req,res){
     });
 }
 exports.contacting=function(req,res){
-    var name = req.body.name;
-    var email = req.body.email;
-    var comment = req.body.comment;
+  var name = req.body.name;
+  var email = req.body.email;
+  var comment = req.body.comment;
 
 
-    var message = {
-        from: 'DoorStep Solutions <doorstepsolution.365days@gmail.com>',
-        to: req.body.email,
-        cc: 'DoorStep Solutions <doorstepsolution.365days@gmail.com>',
-        subject: 'Contacting',
-        html:'<p>Hello '+req.body.name+',<br>Welcome to DoorStepSolutions. Thank you for Your Service Provider into DoorStepSolutions </p>'+
-        '<p>We will see your comment we will contact you</p>'
-    };
+var message = {
+    from: 'DoorStep Solutions <doorstepsolution.365days@gmail.com>',
+    to: req.body.email,
+    cc: 'DoorStep Solutions <doorstepsolution.365days@gmail.com>',
+    subject: 'Thank you for contacting with DoorStepSolutions',
+    html:'<p>Hello '+req.body.name+',<br>Welcome to DoorStepSolutions. Thank you for contacting with us, </p>'+
+         '<p>We will see your comment and we will get back to you ASAP</p>'
+};
 
-    Transport.sendMail(message, function(error){
-        if(error){
-            console.log(error.message);
-        }
-        console.log('Message sent successfully!');
-    });
+Transport.sendMail(message, function(error){
+  if(error){
+      console.log(error.message);
+  }
+  console.log('Message sent successfully!');
+});
 
-    var message = {
-        from: 'DoorStep Solutions <doorstepsolution.365days@gmail.com>',
-        to: 'DoorStep Solutions <doorstepsolution.365days@gmail.com>',
-        subject: 'reacting to Contact',
-        html:'<p>Name: '+req.body.name+',<br>Email:'+req.body.email+'</p>'+
-        '<p>Comment:'+req.body.comment+'</p>'
-    };
+var message = {
+    from: 'DoorStep Solutions <doorstepsolution.365days@gmail.com>',
+    to: 'DoorStep Solutions <doorstepsolution.365days@gmail.com>',
+    subject: 'react to Contact',
+    html:'<p>Name: '+req.body.name+',<br>Email:'+req.body.email+'</p>'+
+         '<p>Comment:'+req.body.comment+'</p>'
+};
 
-    Transport.sendMail(message, function(error){
-        if(error){
-            console.log(error.message);
-        }
-        console.log('Message sent successfully!');
-    });
-    req.flash('success_msg','You contact is registered we wil get back to you');
-    res.redirect('/');
+Transport.sendMail(message, function(error){
+  if(error){
+      console.log(error.message);
+  }
+  console.log('Message sent successfully!');
+});
+req.flash('success_msg','Your message is registered, we wil get back to you ASAP');
+   res.redirect('/');
 
 
 }
