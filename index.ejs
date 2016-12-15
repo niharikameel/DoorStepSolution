@@ -375,7 +375,6 @@
       margin-left: 2em;
       margin-bottom: 1em;
     }
-    .button {background-color: #4CAF50;}
   </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -398,9 +397,14 @@
         <% if(!isAuthenticated) { %>
         <li><a href="#" data-toggle="modal" data-target="#login-modal">SIGN IN</a></li>
         <li><a href="#" data-toggle="modal" data-target="#Signup-modal" >SIGN UP</a></li>
+          <% } else { %>
+        <% if(username=="Admin") { %>
+        <li><a href="/admin">ADMIN</a></li>
         <% } else { %>
+        <li><a href="/myprofile">PROFILE</a></li>
+        <% } %>          
         <li><a href="/signout">SIGN OUT</a></li>
-        <% } %>
+         <% } %>
       </ul>
       <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
@@ -424,12 +428,12 @@
           <div class="Signupmodal-container">
             <h1>SIGN UP</h1><br>
             <% if(errors){ %>
-            <div class="alert alert-danger">
-              <% errors.forEach(function(error) { %>
-              <%= error.msg %>
-              <br>
-              <% }); %>
-            </div>
+              <div class="alert alert-danger">
+                <% errors.forEach(function(error) { %>
+                <%= error.msg %>
+                <br>
+                 <% }); %>
+              </div>
             <% } %>
             <form action="/signup" method="Post">
               <input type="text" name="first_name" placeholder="Firstname" required>
@@ -459,42 +463,39 @@
 </div>
 
 <% if(success_msg.length > 0){ %>
-<div class="alert alert-success alert-dismissable">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-  <%= success_msg %>
-</div>
+  <div class="alert alert-success alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+    <%= success_msg %>  
+  </div>
 <% } %>
 <% if(error.length > 0){ %>
-<div class="alert alert-danger alert-dismissable">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-  <%= error %>
-</div>
+ <div class="alert alert-danger alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+    <%= error %>  
+  </div>
 <% } %>
 <% if(error_msg.length > 0){ %>
-<div class="alert alert-danger alert-dismissable">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-  <%- error_msg %>
-</div>
+  <div class="alert alert-danger alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+    <%- error_msg %>  
+  </div>
 <% } %>
 
+<div class="container">
 <!-- Container (About Section) -->
 <div id="about" class="container-fluid">
   <div class="row">
     <div class="col-sm-8">
       <h2>About Company</h2><br>
       <p><i>"This is the demand of present environment in India.  People are getting busy and have less time for family and house hold work. They need a person who can support and take care of family and house. In metropolitan cities most of people are working, both husband and wife working they need a person who takes care of their - baby/child, and elders when they are in office and out of home. In day to day life people facing problems related to electricity, plumber and some other maintenance of a house.Our business is related to household work"<i></i></i></p>
-            <div style="background-color:gray;color:white;padding:20px ; align: right">
-      <h4>For customers</h4>
-      <p><i>We are giving the quality of service and reliable and we are leader in the market, we set the benchmark and also cost effective. For sure customer will feel quality of service (Internal and external work).</i></p>
-      <p><i>We are here to solve yours doubts,if you have any confusion about our services feel free to ask us</i></p>
-    </div>   
-            <br><a class="btn btn-default btn-lg button" href="/chat">Get connected</a>
+      <br><a class="btn btn-default btn-lg" href="/chat">Get connected</a>
     </div>
-    <div class="col-sm-4">
+<% if(!isAuthenticated) { %>
+<div class="col-sm-4">
       <div class="container-fluid">
-        <form class="form-horizontal" role="form" action="/serviceproviders" method="POST">
+        <form class="form-horizontal" style="min-width:300px !important; " role="form" action="/serviceprovidermail" method="POST">
           <h4 style="color:white;">ServiceProviders Registration </h4>
-          <div class="form-group">
+           <div class="form-group">
             <label for="firstName" class="col-sm-3 control-label">Name</label>
             <div class="col-sm-9">
               <input type="text" id="name" placeholder="Full Name" name="name" class="form-control" autofocus>
@@ -510,7 +511,7 @@
           <div class="form-group">
             <label for="mobileno" class="col-sm-3 control-label">Mobile No</label>
             <div class="col-sm-9">
-              <input type="text" id="mobileno" placeholder="mobile number" name="mobileno" class="form-control">
+              <input type="text" id="mobileno" name="mobileno" class="form-control">
             </div>
           </div>
           <div class="form-group">
@@ -522,47 +523,48 @@
           <div class="form-group">
             <label for="service" class="col-sm-3 control-label">Services</label>
             <div class="col-sm-9">
-              <select class="form-control" id="services" name= "services" onchange="subservicesload()">
-                <option value=0></option>
-                <% if (services) { %>
-                <% services.forEach(function(service) { %>
-                <option value="<%= service.id %>"> <%= service.name %> <%})%> </option>
-                <% } %>
-              </select>
-            </div>
-          </div>
-          <div class="form-group" id="sservice" style="display:block;">
+           <select class="form-control" id="services" name= "services" onchange="subservicesload()">
+           <option value=0></option>
+            <% if (services) { %>
+            <% services.forEach(function(service) { %>
+            <option value="<%= service.id %>"> <%= service.name %> <%})%> </option>
+            <% } %>
+           </select>
+           </div>
+           </div>
+           <div class="form-group" id="sservice" style="display:block;">
             <label for="subservices" class="col-sm-3 control-label">Sub</label>
             <div class="col-sm-9">
               <select class="form-control" id="subservices" name="subservices" required></select>
             </div>
           </div>
-          <div class="form-group">
-            <label for="country" class="col-sm-3 control-label">City</label>
-            <div class="col-sm-9">
-              <select id="country" class="form-control">
-                <option>Delhi</option>
-                <option>Mumbai</option>
-                <option>Bangalore</option>
-                <option>Chennai</option>
-                <option>Hyderabad</option>
-                <option>Ahmedabad</option>
-                <option>Kolkata</option>
-                <option>Surat</option>
-                <option>Pune</option>
-                <option>Jaipur</option>
-              </select>
+            <div class="form-group">
+              <label for="country" class="col-sm-3 control-label">City</label>
+              <div class="col-sm-9">
+                <select id="country" name="city" class="form-control">
+                  <option selected>Delhi</option>
+                  <option>Mumbai</option>
+                  <option>Bangalore</option>
+                  <option>Chennai</option>
+                  <option>Hyderabad</option>
+                  <option>Ahmedabad</option>
+                  <option>Kolkata</option>
+                  <option>Surat</option>
+                  <option>Pune</option>
+                  <option>Jaipur</option>
+                </select>
+              </div>
             </div>
-          </div>
           <div class="form-group">
             <label class="control-label col-sm-3">Gender</label>
-            <div class="col-sm-9">
-              <label class="radio-inline">
-                <input type="radio" id="femaleRadio" name="gender" value="Female">Female <br>
-                <input type="radio" id="maleRadio" name="gender" value="Male" checked>Male
-              </label>
+                <div class="col-sm-9">
+                  <label class="radio-inline">
+                    <input type="radio" id="femaleRadio" name="gender" value="Female">Female
+                    <br>
+                    <input type="radio" id="maleRadio" name="gender" value="Male" checked>Male
+                  </label>
+              </div>
             </div>
-          </div>
 
           <div class="form-group">
             <label for="address" class="col-sm-3 control-label">Address</label>
@@ -590,6 +592,12 @@
     </div>
   </div>
 </div>
+
+
+<% } %>
+
+</div>
+    
 <!-- Container (Services Section) -->
 <div id="services" class="container-fluid text-center">
   <h2> OUR SERVICES</h2>
@@ -611,7 +619,7 @@
       <a href="/home_maintance">
         <span class="glyphicon glyphicon-home logo-small"></span>
         <h4>House maintaining</h4></a>
-      <p></p>
+        <p></p>
     </div>
   </div>
   <br><br>
@@ -620,19 +628,19 @@
       <a href="/cooking">
         <span class="glyphicon glyphicon-cutlery logo-small"></span>
         <h4>Cook Service</h4></a>
-      <p></p>
+        <p></p>
     </div>
     <div class="col-sm-4">
       <a href="/event_planner">
         <span class="glyphicon glyphicon-certificate logo-small"></span>
         <h4>Event planning</h4></a>
-      <p></p>
+        <p></p>
     </div>
     <div class="col-sm-4">
       <a href="/tutors">
         <span class="glyphicon glyphicon-education logo-small"></span>
         <h4>Tutor Service</h4></a>
-      <p></p>
+        <p></p>
     </div>
   </div>
 </div>
@@ -677,10 +685,12 @@
       <p><h4>Contact us</h4> we'll get back to you within 24 hours.</p>
       <p><span class="glyphicon glyphicon-map-marker"></span> Delhi India</p>
       <p><span class="glyphicon glyphicon-phone"></span> +91 1572 254411</p>
-      <p><span class="glyphicon glyphicon-envelope"></span> DoorStepSolution.365days@Gmail.com</p>
+      <p><span class="glyphicon glyphicon-envelope"></span> DoorStep@Gmail.com</p>
     </div>
     <div class="col-sm-7">
+      <form class=""  action="/contacting" method="POST">
       <div class="row">
+        
         <div class="col-sm-6 form-group">
           <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
         </div>
@@ -688,28 +698,30 @@
           <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
         </div>
       </div>
-      <textarea class="form-control" id="comments" name="comments" placeholder="Message" rows="5"></textarea><br>
+      <textarea class="form-control" id="comments" name="comment" placeholder="Message" rows="5"></textarea><br>
       <div class="row">
         <div class="col-sm-12 form-group">
           <button class="btn btn-default pull-right" type="submit">Send</button>
         </div>
       </div>
+      </form>
     </div>
   </div>
 </div>
+
 <footer class="container-fluid text-center">
-  <div class="container">
-    <hr />
-    <div class="text-center center-block">
-      <p class="txt-railway"><i>DoorStepSolutions</i></p>
-      <br />
-      <a href="#"><i class="fa fa-facebook-square fa-3x social"></i></a>
-      <a href="https://twitter.com/Doorstep_365<i class="fa fa-twitter-square fa-3x social"></i></a>
-      <a href="#"><i class="fa fa-google-plus-square fa-3x social"></i></a>
-      <a href="#"><i class="fa fa-envelope-square fa-3x social"></i></a>
+    <div class="container">
+        <hr />
+        <div class="text-center center-block">
+            <p class="txt-railway"><i>DoorStepSolutions</i></p>
+            <br />
+            <a href="https://www.facebook.com/bootsnipp"><i class="fa fa-facebook-square fa-3x social"></i></a>
+            <a href="https://twitter.com/bootsnipp"><i class="fa fa-twitter-square fa-3x social"></i></a>
+            <a href="https://plus.google.com/+Bootsnipp-page"><i class="fa fa-google-plus-square fa-3x social"></i></a>
+            <a href="mailto:bootsnipp@gmail.com"><i class="fa fa-envelope-square fa-3x social"></i></a>
+        </div>
+        <hr /> <p class="txt-railway"><i>DoorStepSolutions@Gmail.com</i></p>
     </div>
-    <hr />
-  </div>
 </footer>
 
 <script>
@@ -735,7 +747,7 @@
         });
       } // End if
     });
-  });
+});
 
 </script>
 
