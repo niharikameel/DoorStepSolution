@@ -2,22 +2,425 @@
 <!doctype html>
 <html>
 <head>
-    <title>Socket.IO chat</title>
-    <style>
+    <title>Chat</title>
+   <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font: 13px Helvetica, Arial; }
-        form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+        form { background: #000; padding: 3px; position: fixed; bottom: 20%; width: 40%; }
         form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
         form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
         #messages { list-style-type: none; margin: 0; padding: 0; }
         #messages li { padding: 5px 10px; }
         #messages li:nth-child(odd) { background: #eee; }
     </style>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-</head>
+    <style>
+        body {
+            font: 400 15px Lato, sans-serif;
+            line-height: 1.8;
+            color: #818182;
+        }
+        h2 {
+            font-size: 24px;
+            text-transform: uppercase;
+            color: #303030;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        h4 {
+            font-size: 19px;
+            line-height: 1.375em;
+            color: #303030;
+            font-weight: 400;
+            margin-bottom: 30px;
+        }
+        .jumbotron {
+            background-color: #5bc0de;
+            background-image: url("http://i.ndtvimg.com/i/2016-01/real-estate-home-buying-apartment-625-300_625x300_71452584141.jpg");
+            padding: 180px 25px;
+            font-family: Montserrat, sans-serif;
+            margin-bottom: 0px;
+            background-position: 0% 25%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: white;
+            text-shadow: black 0.3em 0.3em 0.3em;
+        }
+        .container-fluid {
+            padding: 60px 50px;
+            height: auto;
+        }
+        .bg-grey {
+            background-color: #f6f6f6;
+        }
+        .logo-small {
+            color: forestgreen;
+            font-size: 50px;
+        }
+        .logo {
+            color: #f4511e;
+            font-size: 200px;
+        }
+        .thumbnail {
+            padding: 0 0 15px 0;
+            border: none;
+            border-radius: 0;
+        }
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            margin-bottom: 10px;
+        }
+        .carousel-control.right, .carousel-control.left {
+            background-image: none;
+            color: green;
+        }
+        .carousel-indicators li {
+            border-color: #ffffff;
+        }
+        .carousel-indicators li.active {
+            background-color: #ffffff;
+        }
+        .item h4 {
+            font-size: 19px;
+            line-height: 1.375em;
+            font-weight: 400;
+            font-style: italic;
+            margin: 70px 0;
+        }
+        .item span {
+            font-style: normal;
+        }
+        .panel {
+            border: 1px solid #f4511e;
+            border-radius:0 !important;
+            transition: box-shadow 0.5s;
+        }
+        .panel:hover {
+            box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+        }
+        .panel-footer .btn:hover {
+            border: 1px solid #f4511e;
+            background-color: #fff !important;
+            color: #f4511e;
+        }
+        .panel-heading {
+            color: white !important;
+            background-color: grey !important;
+            padding: 25px;
+            border-bottom: 1px solid transparent;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+        .panel-footer {
+            background-color: green !important;
+        }
+        .panel-footer h3 {
+            font-size: 32px;
+        }
+        .panel-footer h4 {
+            color: green;
+            font-size: 14px;
+        }
+        .panel-footer .btn {
+            margin: 15px 0;
+            background-color: #f4511e;
+            color: green;
+        }
+        .navbar {
+            margin-bottom: 0;
+            background-color: green;
+            z-index: 9999;
+            border: 0;
+            font-size: 12px !important;
+            line-height: 1.42857143 !important;
+            letter-spacing: 4px;
+            border-radius: 0;
+            font-family: Montserrat, sans-serif;
+        }
+        .navbar li a, .navbar .navbar-brand {
+            color: #fff !important;
+        }
+        .navbar-nav li a:hover, .navbar-nav li.active a {
+            color: #00B7FF !important;
+            background-color: #fff !important;
+        }
+        .navbar-default .navbar-toggle {
+            border-color: transparent;
+            color: #fff !important;
+        }
+        footer .glyphicon {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #f4511e;
+        }
+        @media screen and (max-width: 768px) {
+            .col-sm-4 {
+                text-align: center;
+                margin: 25px 0;
+            }
+            .btn-lg {
+                width: 100%;
+                margin-bottom: 35px;
+            }
+        }
+        @media screen and (max-width: 480px) {
+            .logo {
+                font-size: 150px;
+            }
+        }
+        @import url(http://fonts.googleapis.com/css?family=Roboto);
 
-<body>
+        /****** LOGIN MODAL ******/
+        .loginmodal-container {
+            padding: 30px;
+            max-width: 350px;
+            width: 100% !important;
+            background-color: #F7F7F7;
+            margin: 0 auto;
+            border-radius: 2px;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            font-family: roboto;
+        }
+
+        .loginmodal-container h1 {
+            text-align: center;
+            font-size: 1.8em;
+            font-family: roboto;
+        }
+
+        .loginmodal-container input[type=submit] {
+            width: 100%;
+            display: block;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .loginmodal-container input[type=text], input[type=password] {
+            height: 44px;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 10px;
+            -webkit-appearance: none;
+            background: #fff;
+            border: 1px solid #d9d9d9;
+            border-top: 1px solid #c0c0c0;
+            /* border-radius: 2px; */
+            padding: 0 8px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+
+        .loginmodal-container input[type=text]:hover, input[type=password]:hover {
+            border: 1px solid #b9b9b9;
+            border-top: 1px solid #a0a0a0;
+            -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+            -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .loginmodal {
+            text-align: center;
+            font-size: 14px;
+            font-family: 'Arial', sans-serif;
+            font-weight: 700;
+            height: 36px;
+            padding: 0 8px;
+            /* border-radius: 3px; */
+            /* -webkit-user-select: none;
+              user-select: none; */
+        }
+
+        .loginmodal-submit {
+            /* border: 1px solid #3079ed; */
+            border: 0px;
+            color: #fff;
+            text-shadow: 0 1px rgba(0,0,0,0.1);
+            background-color: #4d90fe;
+            padding: 17px 0px;
+            font-family: roboto;
+            font-size: 14px;
+            /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
+        }
+
+        .loginmodal-submit:hover {
+            /* border: 1px solid #2f5bb7; */
+            border: 0px;
+            text-shadow: 0 1px rgba(0,0,0,0.3);
+            background-color: #357ae8;
+            /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
+        }
+
+        .loginmodal-container a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 400;
+            text-align: center;
+            display: inline-block;
+            opacity: 0.6;
+            transition: opacity ease 0.5s;
+        }
+
+        .login-help{
+            font-size: 12px;
+        }
+        body { padding-top:30px; }
+        .form-control { margin-bottom: 10px; }
+        body {
+            background-color: #eee;
+        }
+        .Signupmodal-container
+        {
+            padding: 30px;
+            max-width: 350px;
+            width: 100% !important;
+            background-color: #F7F7F7;
+            margin: 0 auto;
+            border-radius: 2px;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            font-family: roboto;
+        }
+
+        .Signupmodal-container h1
+        {
+            text-align: center;
+            font-size: 1.8em;
+            font-family: roboto;
+        }
+
+        .Signupmodal-container input[type=submit]
+        {
+            width: 100%;
+            display: block;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .Signupmodal-container input[type=text], input[type=password], input[type=email], input[type=date]
+        {
+            height: 44px;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 10px;
+            webkit-appearance: none;
+            background: #fff;
+            border: 1px solid #d9d9d9;
+            border-top: 1px solid #c0c0c0;
+            /* border-radius: 2px; */
+            padding: 0 8px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+
+        .Signupmodal-container input[type=text]:hover, input[type=password]:hover, input[type=email]:hover, input[type=date]:hover {
+            border: 1px solid #b9b9b9;
+            border-top: 1px solid #a0a0a0;
+            -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+            -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .Signupmodal
+        {
+            text-align: center;
+            font-size: 14px;
+            font-family: 'Arial', sans-serif;
+            font-weight: 700;
+            height: 36px;
+            padding: 0 8px;
+            /* border-radius: 3px; */
+            /* -webkit-user-select: none;
++              user-select: none; */
+        }
+
+        .Signupmodal-submit
+        {
+            /* border: 1px solid #3079ed; */
+            border: 0px;
+            color: #fff;
+            text-shadow: 0 1px rgba(0,0,0,0.1);
+            background-color: #4d90fe;
+            padding: 17px 0px;
+            font-family: roboto;
+            font-size: 14px;
+            /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
+        }
+
+        .Signupmodal-submit:hover
+        {
+            /* border: 1px solid #2f5bb7; */
+            border: 0px;
+            text-shadow: 0 1px rgba(0,0,0,0.3);
+            background-color: #357ae8;
+            /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
+        }
+
+        .Signupmodal-container a
+        {
+            text-decoration: none;
+            color: #666;
+            font-weight: 400;
+            text-align: center;
+            display: inline-block;
+            opacity: 0.6;
+            transition: opacity ease 0.5s;
+        }
+
+        *[role="form"] {
+            max-width: 530px;
+            padding: 10px;
+            margin: 0 auto;
+            background-color: green;
+            border-radius: 0.3em;
+        }
+
+        *[role="form"] h2 {
+            margin-left: 2em;
+            margin-bottom: 1em;
+        }
+        footer {
+            background-color: black;
+        }
+
+        #justpushtobottom {
+            height: 10vh;
+        }
+    </style>
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#myPage"><span class="glyphicon glyphicon-refresh"></span>DoorStepSolutions</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#services">SERVICES</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#login-modal">SIGN IN</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#Signup-modal" >SIGN UP</a></li>
+            </ul>
 <ul id="messages"></ul>
 <form action="">
     <input id="m" autocomplete="off" /><button>Send</button>
