@@ -212,19 +212,19 @@
         <br>
         <div class="row">
             <div class="col-sm-4">
-                <a href="#">
+                <a href="/painting">
                     <span class="glyphicon glyphicon-edit logo-small"></span>
                     <h4>Painting</h4>
                     <p></p>
             </div>
             <div class="col-sm-4">
-                <a href="#">
+                <a href="/house_cleaning">
                     <span class="glyphicon glyphicon-trash logo-small"></span>
                     <h4>House Cleaning</h4>
                     <p></p>
             </div>
             <div class="col-sm-4">
-                <a href="#">
+                <a href="/carpentary">
                     <span class="glyphicon glyphicon-home logo-small"></span>
                     <h4>Carpentary</h4>
                     <p></p>
@@ -233,19 +233,19 @@
         <br><br>
         <div class="row">
             <div class="col-sm-4">
-                <a href="#">
+                <a href="/plumbing">
                     <span class="glyphicon glyphicon-wrench logo-small"></span>
                     <h4>Plumbing</h4>
                     <p></p>
             </div>
             <div class="col-sm-4">
-                <a href="#">
+                <a href="/electrical_work">
                     <span class="glyphicon glyphicon-flash logo-small"></span>
                     <h4>Electerical Work</h4>
                     <p></p>
             </div>
             <div class="col-sm-4">
-                <a href="#">
+                <a href="/gardening">
                     <span class="glyphicon glyphicon-tree-deciduous logo-small"></span>
                     <h4>Gardening</h4>
                     <p></p>
@@ -265,20 +265,23 @@
             <p><span class="glyphicon glyphicon-envelope"></span> DoorStep@Gmail.com</p>
         </div>
         <div class="col-sm-7">
-            <div class="row">
-                <div class="col-sm-6 form-group">
-                    <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+            <form class=""  action="/contacting" method="POST">
+                <div class="row">
+
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+                    </div>
                 </div>
-                <div class="col-sm-6 form-group">
-                    <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+                <textarea class="form-control" id="comments" name="comment" placeholder="Message" rows="5"></textarea><br>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <button class="btn btn-default pull-right" type="submit">Send</button>
+                    </div>
                 </div>
-            </div>
-            <textarea class="form-control" id="comments" name="comments" placeholder="Message" rows="5"></textarea><br>
-            <div class="row">
-                <div class="col-sm-12 form-group">
-                    <button class="btn btn-default pull-right" type="submit">Send</button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
