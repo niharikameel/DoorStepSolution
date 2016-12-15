@@ -187,9 +187,10 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="http://localhost:8000/">ABOUT</a></li>
-                <li><a href="http://localhost:8000/">SERVICES</a></li>
-                <li><a href="http://localhost:8000/">CONTACT</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="#services">SERVICES</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+                <li><a href="/signout">SIGN OUT</a></li>
             </ul>
         </div>
     </div>
@@ -208,19 +209,19 @@
         <br>
         <div class="row">
             <div class="col-sm-4">
-                <a href="#">
+                <a href="/elder_care/medical_care">
                     <span class="glyphicon glyphicon-plus-sign logo-small"></span>
                     <h4>Medical Care</h4>
                     <p></p>
             </div>
             <div class="col-sm-4">
-                <a href="#">
+                <a href="/elder_care/elder_transport">
                     <span class="glyphicon glyphicon-bed logo-small"></span>
                     <h4>Transport</h4>
                     <p></p>
             </div>
             <div class="col-sm-4">
-                <a href="#">
+                <a href="/elder_care/elder_caretaker">
                     <span class="glyphicon glyphicon-home logo-small"></span>
                     <h4>Care Taker</h4>
                     <p></p>
@@ -229,16 +230,45 @@
         <br><br>
         <div class="row">
             <div class="col-sm-14">
-                <a href="#">
-                    <span class="glyphicon glyphicon-home logo-small"></span>
+                <a href="/elder_care/nursing">
+                    <span class="	glyphicon glyphicon-home logo-small"></span>
                     <h4>Nursing</h4>
                     <p></p>
             </div>
         </div>
     </div>
 </ul>
+<!-- Container (Contact Section) -->
+<div id="contact" class="container-fluid bg-grey">
+    <h2 class="text-center">CONTACT</h2>
+    <div class="row">
+        <div class="col-sm-5">
+            <p><h4>Contact us</h4> we'll get back to you within 24 hours.</p>
+            <p><span class="glyphicon glyphicon-map-marker"></span> Delhi India</p>
+            <p><span class="glyphicon glyphicon-phone"></span> +91 1572 254411</p>
+            <p><span class="glyphicon glyphicon-envelope"></span> DoorStep@Gmail.com</p>
+        </div>
+        <div class="col-sm-7">
+            <form class=""  action="/contacting" method="POST">
+                <div class="row">
 
-
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+                    </div>
+                </div>
+                <textarea class="form-control" id="comments" name="comment" placeholder="Message" rows="5"></textarea><br>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <button class="btn btn-default pull-right" type="submit">Send</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <footer class="container-fluid text-center">
     <div class="container">

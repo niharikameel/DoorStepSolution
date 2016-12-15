@@ -183,16 +183,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-             <a class="navbar-brand" href="http://localhost:8000"><span class="glyphicon glyphicon-refresh"></span>DoorStepSolutions</a>
+            <a class="navbar-brand" href="#myPage">Cook Services</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="http://localhost:8000/">ABOUT</a></li>
-                <li><a href="http://localhost:8000/">SERVICES</a></li>
-                <li><a href="http://localhost:8000/">CONTACT</a></li>
+                <li><a href="/">HOME</a></li>
+                <li><a href="#services">SERVICES</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+                <li><a href="/signout">SIGN OUT</a></li>
             </ul>
         </div>
     </div>
+
 </nav>
 <div class="jumbotron text-center">
 
@@ -206,34 +208,66 @@
     <br>
     <div class="row">
         <div class="col-sm-4">
-            <a href="#">
+            <a href="/indian_food">
                 <span class="glyphicon glyphicon-cutlery logo-small"></span>
-                <h4>Indian Food</h4></a>a
-                <p></p>
+                <h4>Indian Food</h4></a>
+            <p></p>
         </div>
         <div class="col-sm-4">
-            <a href="#">
+            <a href="/italian_food">
                 <span class="glyphicon glyphicon-apple logo-small"></span>
                 <h4>Italian Food</h4></a>
-                <p></p>
+            <p></p>
         </div>
         <div class="col-sm-4">
-            <a href="#">
+            <a href="/chinese_food">
                 <span class="glyphicon glyphicon-grain logo-small"></span>
                 <h4>Chinese Food</h4></a>
-                <p></p>
+            <p></p>
         </div>
     </div>
     <br><br>
     <div class="row">
         <div class="col-sm-12">
-            <a href="#">
+            <a href="/traditional_food">
                 <span class="glyphicon glyphicon-tree-deciduous logo-small"></span>
                 <h4>Traditional Food</h4></a>
-                <p></p>
+            <p></p>
         </div>
     </div>
 </div>
+<!-- Container (Contact Section) -->
+<div id="contact" class="container-fluid bg-grey">
+    <h2 class="text-center">CONTACT</h2>
+    <div class="row">
+        <div class="col-sm-5">
+            <p><h4>Contact us</h4> we'll get back to you within 24 hours.</p>
+            <p><span class="glyphicon glyphicon-map-marker"></span> Delhi India</p>
+            <p><span class="glyphicon glyphicon-phone"></span> +91 1572 254411</p>
+            <p><span class="glyphicon glyphicon-envelope"></span> DoorStep@Gmail.com</p>
+        </div>
+        <div class="col-sm-7">
+            <form class=""  action="/contacting" method="POST">
+                <div class="row">
+
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+                    </div>
+                </div>
+                <textarea class="form-control" id="comments" name="comment" placeholder="Message" rows="5"></textarea><br>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <button class="btn btn-default pull-right" type="submit">Send</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <footer class="container-fluid text-center">
     <div class="container">
         <hr />

@@ -187,9 +187,10 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="http://localhost:8000/">ABOUT</a></li>
-                <li><a href="http://localhost:8000/">SERVICES</a></li>
-                <li><a href="http://localhost:8000/">CONTACT</a></li>
+                <li><a href="/">HOME</a></li>
+                <li><a href="#services">SERVICES</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+                <li><a href="/signout">SIGN OUT</a></li>
             </ul>
         </div>
     </div>
@@ -208,19 +209,19 @@
         <br>
         <div class="row">
             <div class="col-sm-4">
-                <a href="#">
+                <a href="/child_care/academic_tutor">
                     <span class="glyphicon glyphicon-book logo-small"></span>
                     <h4>Academic Tutorial</h4>
                     <p></p>
             </div>
             <div class="col-sm-4">
-                <a href="#">
+                <a href="/child_care/pediatrics">
                     <span class="glyphicon glyphicon-plus logo-small"></span>
                     <h4>Pediatrics</h4>
                     <p></p>
             </div>
             <div class="col-sm-4">
-                <a href="#">
+                <a href="/Child_care/care_taker">
                     <span class="glyphicon glyphicon-home logo-small"></span>
                     <h4>Care Taker</h4>
                     <p></p>
@@ -229,14 +230,14 @@
         <br><br>
         <div class="row">
             <div class="col-sm-7">
-                <a href="#">
+                <a href="/child_care/child_development">
                     <span class="glyphicon glyphicon-grain logo-small"></span>
                     <h4>Child Development</h4>
                     <p></p>
             </div>
             <div class="row">
-                <div class="col-sm-19">
-                    <a href="#">
+                <div class="col-sm-18">
+                    <a href="/child_care/child_transport">
                         <span class="glyphicon glyphicon-bed logo-small"></span>
                         <h4>Child Transport</h4>
                         <p></p>
@@ -245,8 +246,37 @@
         </div>
     </div>
 </ul>
+<!-- Container (Contact Section) -->
+<div id="contact" class="container-fluid bg-grey">
+    <h2 class="text-center">CONTACT</h2>
+    <div class="row">
+        <div class="col-sm-5">
+            <p><h4>Contact us</h4> we'll get back to you within 24 hours.</p>
+            <p><span class="glyphicon glyphicon-map-marker"></span> Delhi India</p>
+            <p><span class="glyphicon glyphicon-phone"></span> +91 1572 254411</p>
+            <p><span class="glyphicon glyphicon-envelope"></span> DoorStep@Gmail.com</p>
+        </div>
+        <div class="col-sm-7">
+            <form class=""  action="/contacting" method="POST">
+                <div class="row">
 
-
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+                    </div>
+                </div>
+                <textarea class="form-control" id="comments" name="comment" placeholder="Message" rows="5"></textarea><br>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <button class="btn btn-default pull-right" type="submit">Send</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <footer class="container-fluid text-center">
     <div class="container">
