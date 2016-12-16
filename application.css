@@ -1,0 +1,52 @@
+.css-serial {
+  counter-reset: serial-number;  
+}
+
+.css-serial td:first-child:before {
+  counter-increment: serial-number;  
+  content: counter(serial-number); 
+}
+.section-gray {
+    background-color: #fafafa;
+    position: relative;
+    padding: 4em 0;
+}
+
+.section-gray header>h2{
+    text-align: center;
+    line-height: 4.5em;
+    font-size: 2.5em;
+    margin: 0 0 1em 0;
+    font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+.customer-info {
+    width: 350px;
+    display: inline-block;
+    padding-bottom: 44px;
+    margin-right: 16px;
+    margin-left: 24px;
+    
+}
+.customer-info img {
+    width: 70px;
+    margin-right: 15px;
+    float: left;
+    border-radius: 1000px;
+}
+
+.customer-info p {
+    margin-top: 5px;
+    font-size: 26px;
+    text-align: left;
+    line-height: 110%;
+    margin: 0 0 10px;
+}
+.customer-info span {
+    display: block;
+    font-size: 20px;
+    font-style: italic;
+}

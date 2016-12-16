@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Service Provides Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/application.css" type="text/css">
+    <style>
+        body {
+            font: 400 15px Lato, sans-serif;
+            line-height: 1.8;
+            color: #818182;
+        }
+        h2 {
+            font-size: 24px;
+            text-transform: uppercase;
+            color: #303030;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        h4 {
+            font-size: 19px;
+            line-height: 1.375em;
+            color: #303030;
+            font-weight: 400;
+            margin-bottom: 30px;
+        }
+        .jumbotron
+        {
+            background-color: #5bc0de;
+            background-image: url("http://i.ndtvimg.com/i/2016-01/real-estate-home-buying-apartment-625-300_625x300_71452584141.jpg");
+            padding: 200px 25px;
+            font-family: Montserrat, sans-serif;
+            margin-bottom: 0px;
+            background-position: 0% 25%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: white;
+            text-shadow: black 0.3em 0.3em 0.3em;
+        }
+        .container-fluid {
+            padding: 60px 50px;
+            height: auto;
+        }
+        .bg-grey {
+            background-color: #f6f6f6;
+        }
+        .logo-small {
+            color: forestgreen;
+            font-size: 50px;
+        }
+        .logo {
+            color: #f4511e;
+            font-size: 200px;
+        }
+        .thumbnail {
+            padding: 0 0 15px 0;
+            border: none;
+            border-radius: 0;
+        }
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            margin-bottom: 10px;
+        }
+        .carousel-control.right, .carousel-control.left {
+            background-image: none;
+            color: #00B7FF;
+        }
+        .carousel-indicators li {
+            border-color: #ffffff;
+        }
+        .carousel-indicators li.active {
+            background-color: #ffffff;
+        }
+        .item h4 {
+            font-size: 19px;
+            line-height: 1.375em;
+            font-weight: 400;
+            font-style: italic;
+            margin: 70px 0;
+        }
+        .item span {
+            font-style: normal;
+        }
+        .panel {
+            border: 1px solid #f4511e;
+            border-radius:0 !important;
+            transition: box-shadow 0.5s;
+        }
+        .panel:hover {
+            box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+        }
+        .panel-footer .btn:hover {
+            border: 1px solid #f4511e;
+            background-color: #fff !important;
+            color: #f4511e;
+        }
+        .panel-heading {
+            color: white !important;
+            background-color: grey !important;
+            padding: 25px;
+            border-bottom: 1px solid transparent;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+        .panel-footer {
+            background-color: green !important;
+        }
+        .panel-footer h3 {
+            font-size: 32px;
+        }
+        .panel-footer h4 {
+            color: green;
+            font-size: 14px;
+        }
+        .panel-footer .btn {
+            margin: 15px 0;
+            background-color: #f4511e;
+            color: green;
+        }
+        .navbar {
+            margin-bottom: 0;
+            background-color: green;
+            z-index: 9999;
+            border: 0;
+            font-size: 12px !important;
+            line-height: 1.42857143 !important;
+            letter-spacing: 4px;
+            border-radius: 0;
+            font-family: Montserrat, sans-serif;
+        }
+        .navbar li a, .navbar .navbar-brand {
+            color: #fff !important;
+        }
+        .navbar-nav li a:hover, .navbar-nav li.active a {
+            color: #00B7FF !important;
+            background-color: #fff !important;
+        }
+        .navbar-default .navbar-toggle {
+            border-color: transparent;
+            color: #fff !important;
+        }
+        footer .glyphicon {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #f4511e;
+        }
+        @media screen and (max-width: 768px) {
+            .col-sm-4 {
+                text-align: center;
+                margin: 25px 0;
+            }
+            .btn-lg {
+                width: 100%;
+                margin-bottom: 35px;
+            }
+        }
+        @media screen and (max-width: 480px) {
+            .logo {
+                font-size: 150px;
+            }
+        }
+        @import url(http://fonts.googleapis.com/css?family=Roboto);
+    </style>
+
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#myPage">Admin Service Providers Registartion</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">HOME</a></li>
+                <li><a href="/signout">SIGN OUT</a></li>
+            </ul>
+        </div>
+    </div>
+
+</nav>
+<div class="jumbotron">
+    <div class="container-fluid">
+
+    </div>
+</div>
+
+<div class="col-sm-6">
+      <div class="container-fluid">
+        <form class="form-horizontal" role="form" action="/serviceprovider/edit" method="POST">
+          <h4 style="color:white;">ServiceProviders Registration </h4>
+          <input type="hidden" id="id" placeholder="Full Name" name="id" class="form-control" value=<%=sp.id%> autofocus>
+           <div class="form-group">
+            <label for="firstName" class="col-sm-3 control-label">Name</label>
+            <div class="col-sm-9">
+              <input type="text" id="name" placeholder="Full Name" name="name" class="form-control" value=<%=sp.name%> autofocus>
+              <span class="help-block"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email" class="col-sm-3 control-label">Email</label>
+            <div class="col-sm-9">
+              <input type="email" id="email" placeholder="Email" value=<%= sp.email%> name="email" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="mobileno" class="col-sm-3 control-label">Mobile No</label>
+            <div class="col-sm-9">
+              <input type="text" id="mobileno" name="mobileno" value=<%= sp.mobile%> class="form-control">
+            </div>
+          </div>
+           <div class="form-group">
+              <label for="country" class="col-sm-3 control-label">City</label>
+              <div class="col-sm-9">
+                <select id="country" name="city" value=<%= sp.city%>class="form-control">
+                  <option selected>Delhi</option>
+                  <option>Mumbai</option>
+                  <option>Bangalore</option>
+                  <option>Chennai</option>
+                  <option>Hyderabad</option>
+                  <option>Ahmedabad</option>
+                  <option>Kolkata</option>
+                  <option>Surat</option>
+                  <option>Pune</option>
+                  <option>Jaipur</option>
+                </select>
+              </div>
+            </div>
+          <div class="form-group">
+            <label for="address" class="col-sm-3 control-label">Address</label>
+            <div class="col-sm-9">
+              <input type="textbox" id="address" name="address" value=<%=sp.address%> class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-9 col-sm-offset-3">
+              <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </div>
+          </div>
+        </form> <!-- /form -->
+      </div> <!-- ./container -->
+      <span class="glyphicon glyphicon-"></span>
+    </div>
+  </div>
+</div>
+<body>
+</html>

@@ -1,17 +1,24 @@
-var passport = require('passport');
-exports.IsAuthenticated=function(req,res,next){
-    if(req.isAuthenticated()){
-        next();
-    }else{
-        req.flash('error_msg','Please login to continue <a href="#" data-toggle="modal" data-target="#login-modal">CLICK HERE</a>');
-        return res.redirect('/');
-    }
-}
+ $(document).ready(function(){
+ window.scrollTo(500, 0);
+$('#login').click(function(){
+
+}); 
+});
 
 
-exports.destroySession= function(req,res,next){
-    req.logOut();
-    req.session.destroy();
-
-    res.redirect("/");
-}
+//ajax call for sub services
+function subservicesload(){
+var id=$("#services").val();
+ $.ajax ({
+            type:'GET', 
+            url: '/subservices/'+id,
+            success: function(response) {
+            if(response){
+                response.forEach(function(service){
+                 $("#subservices").append("<option value="+service.id+">"+service.name+"</option>");
+                })
+            }
+            console.log(response);
+            }
+        });
+        }
